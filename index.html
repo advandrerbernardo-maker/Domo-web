@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="theme-color" content="#071321"/>
+  <meta name="description" content="DOMO: análise local de indícios de IA, metadados de imagens e vídeos e mensagens suspeitas."/>
+  <meta name="color-scheme" content="dark"/>
+  
+  <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzA2NTM1QiIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjMDkyNjNCIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxMzIxIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM1Q0YxQzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEE1QjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjU4IiBmaWxsPSJ1cmwoI2JhY2spIi8+CiAgPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTE1IiByPSI3NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjBEOEI2IiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDcgMTI4YzAtNTAgMzYtOTAgODEtOTBzODEgNDAgODEgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyRDVDNCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNjAgMTI4aDEzNiIgc3Ryb2tlPSIjMUJEN0IwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMjggNjMgMTc4IDg2djQ3YzAgMzktMjUgNjYtNTAgODAtMjUtMTQtNTAtNDEtNTAtODBWODZ6IiBmaWxsPSIjMDkyQjM3IiBzdHJva2U9InVybCgjc2hpZWxkKSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0ibTEwNCAxMzYgMTcgMTcgMzEtMzgiIHN0cm9rZT0iI0I2RkZFQSIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo="/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzA2NTM1QiIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjMDkyNjNCIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxMzIxIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM1Q0YxQzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEE1QjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjU4IiBmaWxsPSJ1cmwoI2JhY2spIi8+CiAgPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTE1IiByPSI3NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjBEOEI2IiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDcgMTI4YzAtNTAgMzYtOTAgODEtOTBzODEgNDAgODEgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyRDVDNCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNjAgMTI4aDEzNiIgc3Ryb2tlPSIjMUJEN0IwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMjggNjMgMTc4IDg2djQ3YzAgMzktMjUgNjYtNTAgODAtMjUtMTQtNTAtNDEtNTAtODBWODZ6IiBmaWxsPSIjMDkyQjM3IiBzdHJva2U9InVybCgjc2hpZWxkKSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0ibTEwNCAxMzYgMTcgMTcgMzEtMzgiIHN0cm9rZT0iI0I2RkZFQSIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo="/>
+  <style>:root{--bg:#071321;--surface:#0e1d2d;--surface2:#142538;--muted:#8297aa;--line:#203448;--text:#f4f8fc;--mint:#46dfb2;--blue:#11abd0;--yellow:#f4c24f;--red:#ff626b;--green:#33d498;--radius:19px; font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}body{background:radial-gradient(ellipse 390px 320px at 50% -130px,#0c5961 0,transparent 95%),var(--bg)}button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,textarea:focus-visible,label:focus-visible{outline:2px solid var(--mint);outline-offset:3px} .hidden{display:none!important}
+.app-shell{margin:auto;max-width:620px;min-height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden;border-left:1px solid #ffffff05;border-right:1px solid #ffffff05}
+.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:14px 23px;border-bottom:1px solid #17304470;position:sticky;top:0;background:#071321ed;backdrop-filter:blur(14px);z-index:10}.brand{display:flex;align-items:center;gap:10px}.brand img{width:38px;height:38px;border-radius:12px;box-shadow:0 0 23px #0fd3ac12}.brand strong{display:block;line-height:1;font-weight:850;font-size:21px;letter-spacing:2px}.brand span{font-size:10px;letter-spacing:.3px;color:#8ca5b4;display:block;margin-top:5px}.icon-button{display:grid;place-items:center;width:38px;height:38px;border:1px solid #263b4b;background:#101f2e;border-radius:13px;color:#b3cad5}.icon-button svg{width:22px;fill:none;stroke:currentColor;stroke-width:1.5}
+main{padding:0 23px 106px;flex:1}.page{display:none;animation:fadeIn .2s ease}.page.active{display:block}@keyframes fadeIn{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.hero{display:flex;align-items:center;flex-direction:column;text-align:center;padding:21px 0 10px}.hero-orbit{width:138px;height:138px;border:1px solid #24bead35;border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:0 0 0 12px #00b99d05,0 0 0 29px #00b99d04}.hero-logo{width:99px;height:99px;display:grid;place-items:center;box-shadow:0 18px 55px #07bfae23;border-radius:28px}.hero-logo img{width:99px;height:99px;border-radius:28px}.orbit-dot{position:absolute;right:15px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 20px var(--mint)}.status-label{display:flex;gap:8px;align-items:center;background:#093c3a77;color:#95edcf;border:1px solid #17635755;border-radius:30px;padding:7px 12px;margin:21px 0 12px;font-size:11px;font-weight:700;letter-spacing:.2px}.pulse{width:7px;height:7px;border-radius:50%;background:#37e0a5;box-shadow:0 0 12px #37e0a5}
+.hero h1{font-size:clamp(33px,8vw,45px);line-height:1.08;margin:1px 0 10px;letter-spacing:-1.8px;font-weight:800}.hero h1 em{font-style:normal;background:linear-gradient(100deg,#52edba,#4cb8f5);color:transparent;background-clip:text}.hero>p{font-size:13px;max-width:338px;line-height:1.75;color:#adc0cc;margin:3px 0 13px}.privacy-line{display:flex;align-items:center;gap:9px;background:#0c2330;border:1px solid #1c3a42;border-radius:12px;padding:11px 13px;color:#8dd4bf;font-size:11px}.privacy-line svg{width:18px;height:18px;fill:none;stroke:#4cd4af;stroke-width:1.5}.page h2{font-size:16px;margin:25px 0 13px;letter-spacing:-.25px}.section-gap{margin-top:28px!important}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feature-card{position:relative;text-align:left;display:flex;flex-direction:column;gap:7px;padding:15px 12px 18px;background:linear-gradient(145deg,#14283b,#0e1d2d);border:1px solid #294155;border-radius:17px;color:var(--text);min-height:161px;transition:transform .13s,border-color .13s}.feature-card:hover{transform:translateY(-2px);border-color:#37d8bc}.feature-icon{width:37px;height:37px;display:grid;place-items:center;border-radius:12px}.media-icon{background:#1c4a4a;color:#47e2c2}.text-icon{background:#1a3c55;color:#59b7f8}.feature-icon svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.feature-title{font-size:13px;font-weight:750;line-height:1.35}.feature-sub{font-size:10px;color:#91a8b6;line-height:1.5;padding-right:8px}.feature-arrow{position:absolute;right:13px;top:15px;color:#7294a4;font-size:18px}
+.legend{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#0d1c2d}.legend>div{display:grid;grid-template-columns:12px 73px 1fr;align-items:center;gap:9px;padding:13px 12px;font-size:12px}.legend>div+div{border-top:1px solid var(--line)}.legend strong{font-size:12px}.legend div>span:last-child{color:#95adbd;font-size:11px}.bullet{width:9px;height:9px;border-radius:50%;display:inline-block}.bullet.green,.history-dot.green{background:var(--green)}.bullet.yellow,.history-dot.yellow{background:var(--yellow)}.bullet.red,.history-dot.red{background:var(--red)}.notice{display:flex;gap:12px;align-items:start;margin:18px 0 2px;color:#92a9b7}.notice>span{color:#71aabe;font-size:20px;line-height:1}.notice p{font-size:11px;line-height:1.65;margin:0}
+.page-header{padding:31px 0 23px}.eyebrow{color:#4ee8bb!important;font-size:10px!important;font-weight:750!important;letter-spacing:2.3px!important;margin:0 0 11px!important}.page-header h1{font-size:29px;letter-spacing:-1px;margin:0 0 8px}.page-header>p:last-child{color:#9bb0bf;font-size:13px;line-height:1.65;margin:0}.drop-zone{display:flex;align-items:center;flex-direction:column;text-align:center;justify-content:center;min-height:238px;gap:9px;border-radius:20px;background:linear-gradient(145deg,#102735,#0c1b2c);border:1.5px dashed #337368;cursor:pointer;padding:22px 18px}.drop-zone.dragging{border-color:#6efbd4;background:#15373c}.drop-icon{width:57px;height:57px;border-radius:16px;display:grid;place-items:center;background:#154a48;color:#51eec0;margin-bottom:7px}.drop-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.drop-zone strong{font-size:15px}.drop-zone span:not(.drop-icon){color:#adc5cf;font-size:12px}.drop-zone small{color:#778d9d;font-size:10px;line-height:1.5}.file-selected{background:#102638;border:1px solid var(--line);margin-top:13px;border-radius:10px;padding:12px;color:#cce9e2;font-size:12px;overflow-wrap:anywhere}.scan-progress{display:flex;align-items:center;gap:11px;color:#b1d4c7;margin:18px 0;font-size:12px}.loader{width:18px;height:18px;border:2px solid #2d5f57;border-top-color:#57e6bf;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.input-label{font-size:12px;font-weight:700;display:block;margin:3px 0 11px}textarea{display:block;width:100%;background:#0f1e2f;border:1px solid #344a5a;border-radius:16px;color:white;resize:vertical;min-height:178px;padding:15px;font-size:13px;line-height:1.65;outline:none}textarea:focus{border-color:#43d9b4}textarea::placeholder{color:#6d8797}.input-footer{display:flex;justify-content:space-between;align-items:center;color:#7f9aab;font-size:11px;margin:9px 0 20px}.text-button{border:0;background:none;color:#75e2c0;font-size:12px;padding:0}.primary-button{background:linear-gradient(100deg,#17b6a0,#10a1bd);border:0;border-radius:14px;color:#052331;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 17px;font-size:14px;font-weight:800;box-shadow:0 14px 30px #0fb6ac15}.secondary-button{width:100%;background:#102637;border:1px solid #314b5b;border-radius:12px;color:#d3e7ed;padding:13px 12px;font-size:12px;margin-top:13px}
+.result-container:not(:empty){margin-top:22px}.result-card{background:#0f1f2f;border:1px solid #2c4858;border-radius:17px;overflow:hidden}.result-card.green{border-color:#1c765d}.result-card.yellow{border-color:#947028}.result-card.red{border-color:#9d3949}.result-bar{display:flex;gap:12px;align-items:center;padding:16px 14px;background:#174b3a45}.yellow .result-bar{background:#6b4b0c43}.red .result-bar{background:#621c2648}.level-icon{font-size:22px;color:#54e9b0}.yellow .level-icon{color:#f5c453}.red .level-icon{color:#ff626b}.result-bar strong{display:block;font-size:14px}.result-bar small{display:block;font-size:10px;color:#b9cbce;margin-top:4px}.result-body{padding:16px}.result-summary{line-height:1.65;font-size:12px;color:#d2e0e5;margin:0 0 14px}.result-body h3{font-size:12px;margin:16px 0 13px}.evidence{display:flex;gap:9px;margin-bottom:16px}.evidence-mark{font-size:12px;color:var(--yellow);margin-top:2px}.evidence strong{font-size:12px}.evidence p{color:#9bb0bf;font-size:11px;line-height:1.6;margin:5px 0 0}.empty-evidence{border:1px dashed #334c5c;border-radius:11px;padding:13px;font-size:11px;color:#92b3bc}.limit-details{margin-top:17px;border-top:1px solid #223a4b;padding-top:14px;color:#9ab0c0;font-size:11px}.limit-details summary{cursor:pointer;font-weight:700}.limit-details li{margin-bottom:7px;line-height:1.5;padding-left:3px}.result-links{display:flex;flex-direction:column;gap:9px;margin-top:19px}.result-links a{display:block;text-decoration:none;background:#113947;color:#8ee8d4;border:1px solid #2b6c6b;padding:13px;border-radius:10px;font-size:12px;font-weight:650}
+.history-list{display:flex;flex-direction:column;gap:10px}.history-entry{background:#102132;border:1px solid var(--line);border-radius:13px;padding:15px;display:flex;gap:11px;align-items:start}.history-dot{width:9px;height:9px;border-radius:50%;margin-top:6px}.history-entry div{display:flex;flex-direction:column;gap:4px}.history-entry strong{font-size:12px}.history-entry span:not(.history-dot){font-size:12px;color:#aabfcd}.history-entry small{font-size:10px;color:#718a9a}.history-empty{display:flex;align-items:center;text-align:center;flex-direction:column;gap:9px;padding:55px 20px;background:#102132;border-radius:17px;border:1px dashed #294354}.history-empty>span{font-size:36px;color:#4ce5bc}.history-empty strong{font-size:15px}.history-empty p{font-size:12px;color:#8ba6b7;line-height:1.5}
+.setting-card{display:flex;gap:11px;align-items:center;background:#0f2133;border:1px solid #25394b;border-radius:14px;padding:13px;margin-bottom:10px}.setting-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#19404b;font-size:17px}.setting-card>div{flex:1;min-width:0}.setting-card strong{display:block;font-size:12px}.setting-card small{font-size:10px;line-height:1.6;color:#92abb9;display:block;margin-top:4px}.setting-check{color:#4ee8ad;font-weight:900}.unavailable{color:#e9c76d;font-size:9px}.about{display:flex;flex-direction:column;align-items:center;text-align:center;margin:38px auto 10px}.about img{width:60px;height:60px;border-radius:17px;margin-bottom:9px}.about strong{font-size:20px;letter-spacing:3px}.about span{font-size:11px;color:#89a6b2;margin-top:5px}.about p{font-size:11px;color:#7799aa;max-width:260px;line-height:1.5}
+.bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #264050;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:620px;background:#0a1929f7;backdrop-filter:blur(16px);padding:9px 7px max(11px, env(safe-area-inset-bottom));z-index:20}.tab{background:none;border:0;color:#77909f;display:flex;flex-direction:column;align-items:center;gap:5px;min-height:49px;justify-content:center;font-size:10px;font-weight:650}.tab.active{color:#59e3c0}.tab svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.toast{position:fixed;left:50%;bottom:93px;transform:translate(-50%,15px);max-width:min(90vw,420px);width:max-content;pointer-events:none;opacity:0;z-index:100;transition:opacity .2s,transform .2s;padding:12px 17px;border-radius:13px;background:#24382c;border:1px solid #397d5a;color:#e4fff1;font-size:12px;box-shadow:0 10px 40px #0007}.toast.yellow{background:#42310f;border-color:#99751e;color:#ffe3a4}.toast.red{background:#4e1c26;border-color:#af4452;color:#ffdce0}.toast.shown{opacity:1;transform:translate(-50%,0)}
+@media(min-width:800px){.app-shell{box-shadow:0 0 120px #0007}.hero{padding-top:42px}.hero-orbit{width:154px;height:154px}.feature-card{min-height:172px;padding:20px}.feature-sub{font-size:12px}.page h2{font-size:18px}}@media(max-width:360px){main{padding-left:16px;padding-right:16px}.topbar{padding-left:16px;padding-right:16px}.legend>div{grid-template-columns:10px 60px 1fr;gap:7px}.legend div>span:last-child{font-size:10px}}
+</style>
+  <title>DOMO | Proteção contra a desinformação</title>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzA2NTM1QiIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjMDkyNjNCIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxMzIxIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM1Q0YxQzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEE1QjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjU4IiBmaWxsPSJ1cmwoI2JhY2spIi8+CiAgPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTE1IiByPSI3NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjBEOEI2IiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDcgMTI4YzAtNTAgMzYtOTAgODEtOTBzODEgNDAgODEgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyRDVDNCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNjAgMTI4aDEzNiIgc3Ryb2tlPSIjMUJEN0IwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMjggNjMgMTc4IDg2djQ3YzAgMzktMjUgNjYtNTAgODAtMjUtMTQtNTAtNDEtNTAtODBWODZ6IiBmaWxsPSIjMDkyQjM3IiBzdHJva2U9InVybCgjc2hpZWxkKSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0ibTEwNCAxMzYgMTcgMTcgMzEtMzgiIHN0cm9rZT0iI0I2RkZFQSIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Ícone DOMO"/><div><strong>DOMO</strong><span>Proteção inteligente</span></div></div>
+    <button class="icon-button" id="settingsButton" type="button" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM4.8 10.1l-1.2-1 1.5-2.6 1.5.5a8 8 0 0 1 2-1.2L9 4h3l.4 1.8a8 8 0 0 1 2 1.2l1.6-.5 1.5 2.6-1.3 1a8 8 0 0 1 0 2.4l1.3 1-1.5 2.6-1.6-.5a8 8 0 0 1-2 1.2L12 19H9l-.4-1.8a8 8 0 0 1-2-1.2l-1.5.5-1.5-2.6 1.2-1a8 8 0 0 1 0-2.8Z" transform="translate(1 0)"/></svg></button>
+  </header>
+  <main>
+    <section id="homePage" class="page active" aria-label="Início">
+      <div class="hero">
+        <div class="hero-orbit"><div class="hero-logo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzA2NTM1QiIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjMDkyNjNCIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxMzIxIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM1Q0YxQzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEE1QjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjU4IiBmaWxsPSJ1cmwoI2JhY2spIi8+CiAgPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTE1IiByPSI3NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjBEOEI2IiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDcgMTI4YzAtNTAgMzYtOTAgODEtOTBzODEgNDAgODEgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyRDVDNCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNjAgMTI4aDEzNiIgc3Ryb2tlPSIjMUJEN0IwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMjggNjMgMTc4IDg2djQ3YzAgMzktMjUgNjYtNTAgODAtMjUtMTQtNTAtNDEtNTAtODBWODZ6IiBmaWxsPSIjMDkyQjM3IiBzdHJva2U9InVybCgjc2hpZWxkKSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0ibTEwNCAxMzYgMTcgMTcgMzEtMzgiIHN0cm9rZT0iI0I2RkZFQSIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt=""/></div><span class="orbit-dot"></span></div>
+        <div class="status-label"><span class="pulse"></span> Análise sob seu controle</div>
+        <h1>Veja além<br/><em>da aparência.</em></h1>
+        <p>Identifique sinais de manipulação em imagens, vídeos e mensagens. Sem alarmismo e sem enviar seus arquivos.</p>
+      </div>
+      <div class="privacy-line"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v5c0 5 3.1 8.5 8 11 4.9-2.5 8-6 8-11V6l-8-4Zm0 5v9m0 2v.3"/></svg><span>Os arquivos analisados ficam no seu dispositivo</span></div>
+      <h2>O que deseja verificar?</h2>
+      <div class="action-grid">
+        <button class="feature-card" id="openMedia" type="button"><span class="feature-icon media-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m4 17 5-5 3 3 3-4 6 7M8 8h.01"/></svg></span><span class="feature-title">Imagem ou vídeo</span><span class="feature-sub">Marcas digitais, origem e metadados</span><span class="feature-arrow">↗</span></button>
+        <button class="feature-card" id="openText" type="button"><span class="feature-icon text-icon"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8m-8 4h8m-8 3h5"/></svg></span><span class="feature-title">Notícia ou mensagem</span><span class="feature-sub">Sinais de golpe e checagem de fatos</span><span class="feature-arrow">↗</span></button>
+      </div>
+      <h2 class="section-gap">Como o DOMO sinaliza</h2>
+      <div class="legend">
+        <div><span class="bullet green"></span><strong>Verde</strong><span>Nenhum indício encontrado</span></div>
+        <div><span class="bullet yellow"></span><strong>Amarelo</strong><span>Requer atenção</span></div>
+        <div><span class="bullet red"></span><strong>Vermelho</strong><span>Problema comprovado</span></div>
+      </div>
+      <div class="notice"><span>ⓘ</span><p>O DOMO não garante que algo seja verdadeiro. Ausência de sinais não é prova de autenticidade.</p></div>
+    </section>
+
+    <section id="mediaPage" class="page" aria-label="Verificar mídia">
+      <div class="page-header"><p class="eyebrow">ANÁLISE DE MÍDIA</p><h1>Investigar arquivo</h1><p>Buscamos indícios de ferramentas de IA, declarações de origem e estruturas de credenciais digitais.</p></div>
+      <label class="drop-zone" id="dropZone" for="mediaInput" tabindex="0"><span class="drop-icon"><svg viewBox="0 0 24 24"><path d="M12 17V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg></span><strong>Escolher foto ou vídeo</strong><span>Toque aqui ou arraste um arquivo</span><small>JPEG, PNG, WebP, MP4 e outros formatos (análise de metadados)</small></label>
+      <input type="file" id="mediaInput" accept="image/*,video/*,.heic,.heif,.mov" hidden />
+      <div id="fileSelected" class="file-selected hidden"></div>
+      <div class="scan-progress hidden" id="scanProgress"><span class="loader"></span><span>Analisando sinais presentes no arquivo...</span></div>
+      <div id="mediaResult" class="result-container" aria-live="polite"></div>
+      <div class="notice"><span>ⓘ</span><p>Esta versão examina metadados e estruturas de arquivos. Não verifica assinaturas criptográficas C2PA nem detecta deepfakes a partir de pixels ou áudio.</p></div>
+    </section>
+
+    <section id="textPage" class="page" aria-label="Verificar texto">
+      <div class="page-header"><p class="eyebrow">ANÁLISE DE TEXTO</p><h1>Verificar mensagem</h1><p>Procure sinais típicos de golpes e consulte verificações já publicadas sobre a afirmação.</p></div>
+      <label for="textInput" class="input-label">Cole a notícia, mensagem ou endereço</label>
+      <textarea id="textInput" rows="7" placeholder="Cole aqui o texto recebido, um título de notícia ou uma mensagem suspeita..." maxlength="6000"></textarea>
+      <div class="input-footer"><span id="charCount">0 / 6000</span><button id="clearText" class="text-button" type="button">Limpar</button></div>
+      <button id="analyzeText" class="primary-button" type="button"><span>⚠️ Analisar texto</span><span>→</span></button>
+      <div id="textResult" class="result-container" aria-live="polite"></div>
+      <div class="notice"><span>ⓘ</span><p>Identificar frases suspeitas não confirma que uma notícia seja falsa. A confirmação exige evidências e fontes externas.</p></div>
+    </section>
+
+    <section id="historyPage" class="page" aria-label="Histórico">
+      <div class="page-header"><p class="eyebrow">REGISTROS LOCAIS</p><h1>Suas análises</h1><p>Somente data, tipo de análise e resultado. Nunca salvamos a imagem, vídeo ou texto analisado.</p></div>
+      <div id="historyList" class="history-list"></div>
+      <button class="secondary-button" type="button" id="clearHistory">Apagar histórico local</button>
+    </section>
+
+    <section id="settingsPage" class="page" aria-label="Privacidade e informações">
+      <div class="page-header"><p class="eyebrow">PREFERÊNCIAS</p><h1>Controle e privacidade</h1><p>Você decide o que analisar. O DOMO não fica observando sua tela nesta versão.</p></div>
+      <div class="setting-card"><span class="setting-icon">🛡️</span><div><strong>Arquivos processados localmente</strong><small>Sem envio automático de mídia para servidores.</small></div><span class="setting-check">✓</span></div>
+      <div class="setting-card"><span class="setting-icon">🔕</span><div><strong>Alertas discretos</strong><small>Sem som e sem notificações invasivas.</small></div><span class="setting-check">✓</span></div>
+      <div class="setting-card"><span class="setting-icon">🔎</span><div><strong>Checagem externa opcional</strong><small>O navegador só abre quando você escolhe consultar fontes.</small></div><span class="setting-check">✓</span></div>
+      <div class="setting-card"><span class="setting-icon">📱</span><div><strong>Monitoramento contínuo da tela</strong><small>Não disponível na versão web. Depende de aplicativo Android nativo e permissões específicas.</small></div><span class="unavailable">Indisponível</span></div>
+      <button id="installButton" class="primary-button hidden" type="button"><span>Instalar DOMO</span><span>↓</span></button>
+      <button class="secondary-button" id="deleteData" type="button">Apagar todos os dados locais</button>
+      <div class="about"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzA2NTM1QiIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjMDkyNjNCIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxMzIxIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM1Q0YxQzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEE1QjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjU4IiBmaWxsPSJ1cmwoI2JhY2spIi8+CiAgPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTE1IiByPSI3NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjBEOEI2IiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDcgMTI4YzAtNTAgMzYtOTAgODEtOTBzODEgNDAgODEgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyRDVDNCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNjAgMTI4aDEzNiIgc3Ryb2tlPSIjMUJEN0IwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMjggNjMgMTc4IDg2djQ3YzAgMzktMjUgNjYtNTAgODAtMjUtMTQtNTAtNDEtNTAtODBWODZ6IiBmaWxsPSIjMDkyQjM3IiBzdHJva2U9InVybCgjc2hpZWxkKSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0ibTEwNCAxMzYgMTcgMTcgMzEtMzgiIHN0cm9rZT0iI0I2RkZFQSIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt=""/><strong>DOMO</strong><span>Versão 1.0 • Análise responsável</span><p>Um alerta é um convite para verificar, não um julgamento automático da verdade.</p></div>
+    </section>
+  </main>
+  <nav class="bottom-nav" aria-label="Menu principal">
+    <button class="tab active" data-page="homePage" type="button"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-6v-6H9v6H3z"/></svg><span>Início</span></button>
+    <button class="tab" data-page="mediaPage" type="button"><svg viewBox="0 0 24 24"><path d="M3 4h18v16H3zM6 16l4-4 3 3 3-5 5 7"/></svg><span>Mídia</span></button>
+    <button class="tab" data-page="textPage" type="button"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8m-8 4h8m-8 4h5"/></svg><span>Texto</span></button>
+    <button class="tab" data-page="historyPage" type="button"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6m-3-3v6h6M12 7v5l4 3"/></svg><span>Histórico</span></button>
+  </nav>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>/* DOMO 1.0: metadata-aware, offline, privacy-first preliminary analysis.
+   Important: NO cryptographic C2PA validation, NO pixel-level deepfake detection.
+   Any claim requiring evidence beyond metadata is explicitly not made. */
+const AI_SOFTWARE = [
+  {id:'midjourney', re:/\bmidjourney\b/i, name:'Midjourney'},
+  {id:'stable-diffusion', re:/stable[\s_-]?diffusion|automatic1111|comfyui|invokeai/i, name:'Ferramentas do ecossistema Stable Diffusion'},
+  {id:'dall-e', re:/\bdall[\s_-]?[eé](?:[\s_-]?[23])?\b|\bopenai[\s_-]?image\b/i, name:'DALL·E / ferramenta de imagem da OpenAI'},
+  {id:'firefly', re:/\b(Adobe\s+)?Firefly\b/i, name:'Adobe Firefly'},
+  {id:'ideogram', re:/\bideogram\b/i, name:'Ideogram'},
+  {id:'flux', re:/\bflux\.1\b|\bblack[\s_-]?forest[\s_-]?labs\b/i, name:'FLUX'},
+  {id:'runway', re:/\brunwayml\b|\brunway\s+gen-?[234]\b/i, name:'Runway'},
+  {id:'sora', re:/\bsora\s*(?:ai|video|openai)\b/i, name:'Sora'},
+];
+const SOURCETYPE = /(?:trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia|digitalSourceType\s*[:=]\s*["']?[^<\n]{0,80}(?:trained|algorithmic))/i;
+const AI_METADATA = /(?:ai_generated\s*[:=]\s*(?:true|1)|generated[-_\s]?by[-_\s]?ai|created\s+with\s+(?:generative\s+)?ai|prompt\s*[:=].{6,100}(?:negative_prompt|steps\s*:|sampler\s*:))/i;
+const CREDENTIAL = /(?:c2pa|jumbf|caBX|content.?credentials)/i;
+const MAX_SECTION = 6 * 1024 * 1024;
+const decode = (buffer) => new TextDecoder('latin1').decode(buffer);
+const literalText = value => String(value ?? '').slice(0, 150);
+
+function findSignals(samples) {
+  const raw = samples.join('\n');
+  const evidence=[];
+  if (CREDENTIAL.test(raw)) evidence.push({code:'credential', label:'Estrutura ou referência C2PA/JUMBF encontrada', detail:'Há sinais de credenciais de conteúdo no arquivo. A assinatura e o histórico não foram validados criptograficamente; uma referência isolada não comprova a origem.', severity:'info'});
+  if (SOURCETYPE.test(raw)) evidence.push({code:'source-type', label:'Metadados declaram origem algorítmica', detail:'O arquivo contém uma declaração de origem ou edição algorítmica. Metadados podem ser removidos ou falsificados.', severity:'warning'});
+  if (AI_METADATA.test(raw)) evidence.push({code:'ai-metadata', label:'Referência a geração por inteligência artificial', detail:'Encontramos descrições ou parâmetros compatíveis com ferramentas de geração por IA. Isso é um indício, não uma perícia conclusiva.', severity:'warning'});
+  const found = AI_SOFTWARE.filter(s=>s.re.test(raw));
+  if(found.length) evidence.push({code:'ai-software', label:'Nome de ferramenta de IA nos metadados', detail:`Possível referência a: ${found.map(s=>s.name).join(', ')}. A simples menção não demonstra que toda a imagem ou vídeo foi gerada ou manipulada.`, severity:'warning'});
+  return evidence;
+}
+function analyzeBytes(bytes, {name='Arquivo',type='application/octet-stream', size=bytes.byteLength}={}) {
+  const slice = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  const head = slice.subarray(0, Math.min(MAX_SECTION, slice.length));
+  const tail = slice.length > MAX_SECTION ? slice.subarray(Math.max(MAX_SECTION, slice.length-MAX_SECTION)) : new Uint8Array();
+  const evidence = findSignals([decode(head),decode(tail)]);
+  const hasAI = evidence.some(e=>e.severity==='warning');
+  return {
+    kind:'media', name:literalText(name), type:literalText(type), size,
+    level:hasAI?'yellow':evidence.length?'yellow':'green',
+    title:hasAI?'⚠️ Possível origem por IA':evidence.length?'⚠️ Origem a verificar':'⚠️ Sem sinais nos metadados',
+    summary:hasAI?'O arquivo contém indícios que merecem atenção. Não é possível confirmar uma manipulação apenas com esses dados.': evidence.length?'Há referências a credenciais ou origem digital, mas sua autenticidade não foi verificada.':'Não encontramos indícios nos trechos de arquivo examinados. Isso não comprova que o conteúdo seja verdadeiro ou autêntico.',
+    evidence,
+    limitations:['Análise limitada aos trechos de metadados acessíveis no arquivo.','Sem verificação criptográfica C2PA.','Sem análise forense dos pixels, quadros ou voz.','Informações de plataformas sociais podem eliminar ou alterar os metadados originais.']
+  };
+}
+async function analyzeFile(file) {
+  if(!file || typeof file.slice!=='function') throw new Error('Selecione um arquivo válido.');
+  const LIMIT = 2 * 1024 * 1024 * 1024;
+  if(file.size > LIMIT) throw new Error('Arquivo muito grande. O limite desta versão é de 2 GB.');
+  if(file.size===0) throw new Error('O arquivo está vazio.');
+  // Read only first and last up to 6 MB, not the entire file (video-friendly).
+  const first = new Uint8Array(await file.slice(0,MAX_SECTION).arrayBuffer());
+  const last = file.size>MAX_SECTION ? new Uint8Array(await file.slice(Math.max(MAX_SECTION,file.size-MAX_SECTION)).arrayBuffer()) : new Uint8Array();
+  const combined = new Uint8Array(first.length + last.length);
+  combined.set(first); combined.set(last, first.length);
+  return analyzeBytes(combined,{name:file.name,type:file.type||'Desconhecido',size:file.size});
+}
+const patternRules = [
+  {code:'urgency', re:/\b(urgente|ultima chance|última chance|agora ou nunca|prazo acaba|somente hoje|últimas horas|nao perca|não perca)\b/i, label:'Linguagem de urgência', detail:'Mensagens que pressionam para agir rapidamente merecem checagem, principalmente se pedirem dinheiro ou dados.'},
+  {code:'viral',re:/\b(repass[ae]|compartilhe com|encaminhe para|a mídia não mostra|a imprensa esconde|estão escondendo|nao querem que voce saiba|não querem que você saiba)\b/i,label:'Pedido de divulgação ou apelo conspiratório',detail:'O convite para repassar sem verificar não é evidência de que uma afirmação seja verdadeira.'},
+  {code:'secrets',re:/\b(senha|c[oó]digo de verifica[çc][aã]o|token|dados banc[aá]rios|cvv)\b/i,label:'Referência a dados sensíveis',detail:'Evite fornecer senhas, códigos e dados bancários por links ou mensagens inesperadas.'},
+  {code:'money',re:/\b(pix|transfer[eê]ncia|taxa de libera[çc][aã]o|dep[oó]sito|premia[çc][aã]o|pr[eê]mio)\b/i,label:'Referência a dinheiro ou pagamento',detail:'Confira a identidade do remetente por canal oficial antes de efetuar transferências.'},
+];
+const shortened = new Set(['bit.ly','tinyurl.com','cutt.ly','t.co','is.gd','rebrand.ly','shorturl.at']);
+function safeURL(raw) {try {return new URL(raw);}catch{return null;}}
+function extractUrls(text) {return text.match(/(?:https?:\/\/|www\.)[^\s<>"'“”]+/gi)||[];}
+function analyzeText(input) {
+  const txt = String(input??'').trim();
+  if(txt.length<10) throw new Error('Insira pelo menos 10 caracteres para verificar.');
+  const evidence = patternRules.filter(rule=>rule.re.test(txt)).map(rule=>({code:rule.code,label:rule.label,detail:rule.detail,severity:'warning'}));
+  const links = [...new Set(extractUrls(txt))].slice(0,12);
+  for(const link of links){
+    const value=link.startsWith('www.')?'https://'+link:link;
+    const url=safeURL(value);
+    if(!url) continue;
+    const host=url.hostname.toLowerCase();
+    if(host.startsWith('xn--')||host.includes('.xn--')||/^\d{1,3}(?:\.\d{1,3}){3}$/.test(host)||url.username||url.password){
+      evidence.push({code:'url-risk',label:'Endereço com formato que exige cautela',detail:`O endereço ${host.slice(0,80)} usa caracteres codificados, IP numérico ou credenciais na URL. Isso não prova fraude, mas merece verificação.`,severity:'warning'});
+    }
+    if(shortened.has(host)) evidence.push({code:'short-url',label:'Link encurtado',detail:'O destino real do link pode não estar visível antes da abertura. Evite clicar se a origem for desconhecida.',severity:'warning'});
+    if(url.protocol!=='https:') evidence.push({code:'unencrypted',label:'Link sem HTTPS',detail:'Esse link usa HTTP ou outro protocolo. Não insira informações pessoais sem conferir o endereço.',severity:'warning'});
+  }
+  const query=txt.replace(/https?:\/\/\S+/g,'').slice(0,180).trim()||txt.slice(0,180);
+  return {
+    kind:'text',name:'Mensagem analisada',type:'text/plain',size:txt.length,
+    level:evidence.length?'yellow':'green',
+    title:evidence.length?'⚠️ Verifique esta mensagem':'⚠️ Nenhum sinal típico encontrado',
+    summary:evidence.length?'Foram identificados elementos que pedem atenção. Nenhum deles, isoladamente, prova que a mensagem seja falsa ou um golpe.':'Não foram encontrados padrões simples de risco. O conteúdo NÃO foi verificado em fontes independentes.',
+    evidence,query,
+    limitations:['A detecção de linguagem e links é indicativa, não conclusiva.','Esta versão não consulta automaticamente bases de notícias verificadas.','Se quiser confirmar afirmações, use as consultas externas opcionais.']
+  };
+}
+function factCheckUrl(query){return 'https://toolbox.google.com/factcheck/explorer/search/'+encodeURIComponent(query||'');}
+function newsSearchUrl(query){return 'https://www.google.com/search?q='+encodeURIComponent((query||'')+' checagem de fatos');}
+
+
+const $ = (id) => document.getElementById(id);
+const esc = (text) => String(text??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='domo-history-v1';
+const readHistory=()=>{try{return JSON.parse(localStorage.getItem(key)||'[]')}catch{return []}};
+const saveHistory=entry=>{try{const entries=readHistory(); entries.unshift({at:new Date().toISOString(),kind:entry.kind,level:entry.level,title:entry.title});localStorage.setItem(key,JSON.stringify(entries.slice(0,30)));}catch{}};
+const icons={green:'●',yellow:'▲',red:'■'};
+let toastTimer=null, deferredInstall=null;
+function toast(message,level='yellow'){
+ const el=$('toast');el.className=`toast shown ${level}`;el.textContent=`⚠️ ${message}`;
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.className='toast'},4200);
+}
+function navigate(page){
+ document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===page));
+ document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('active',el.dataset.page===page));
+ if(page==='historyPage')renderHistory();
+ document.querySelector('main').scrollTop=0;
+}
+function formatBytes(n){if(n<1024)return n+' bytes';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(1)+' MB';}
+function renderResult(result,containerId){
+ const details=result.evidence.length?result.evidence.map(e=>`<div class="evidence"><span class="evidence-mark">◉</span><div><strong>${esc(e.label)}</strong><p>${esc(e.detail)}</p></div></div>`).join(''):'<div class="empty-evidence">Nenhum sinal específico encontrado nos dados disponíveis.</div>';
+ const links=result.kind==='text'?`<div class="result-links"><a href="${esc(factCheckUrl(result.query))}" target="_blank" rel="noopener noreferrer">Conferir checagens publicadas ↗</a><a href="${esc(newsSearchUrl(result.query))}" target="_blank" rel="noopener noreferrer">Pesquisar outras fontes ↗</a></div>`:'';
+ $(containerId).innerHTML=`<section class="result-card ${result.level}"><div class="result-bar"><span class="level-icon">${icons[result.level]}</span><div><strong>${esc(result.title)}</strong><small>${result.kind==='media'?'Análise de metadados do arquivo':'Triagem preliminar da mensagem'}</small></div></div><div class="result-body"><p class="result-summary">${esc(result.summary)}</p><h3>O que foi observado</h3>${details}<details class="limit-details"><summary>Limitações desta análise</summary><ul>${result.limitations.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></details>${links}<button type="button" class="secondary-button report-copy">Copiar resumo do resultado</button></div></section>`;
+ $(containerId).querySelector('.report-copy')?.addEventListener('click',async()=>{
+   const report=`DOMO | ${result.title}\n${result.summary}\n\n${result.evidence.map(e=>'- '+e.label+': '+e.detail).join('\n')}\n\nObservação: avaliação preliminar. Não equivale a perícia nem checagem conclusiva.`;
+   try{await navigator.clipboard.writeText(report);toast('Resumo copiado','green')}catch{toast('Não foi possível copiar neste navegador')}
+ });
+ saveHistory(result);
+ toast(result.level==='green'?'Análise concluída, sem sinais específicos': 'Sinais encontrados. Confira os detalhes',result.level);
+}
+function renderHistory(){
+ const arr=readHistory();const root=$('historyList');
+ if(!arr.length){root.innerHTML='<div class="history-empty"><span>◷</span><strong>Seu histórico está vazio</strong><p>As análises aparecerão aqui, sem armazenar seus arquivos ou mensagens.</p></div>';return;}
+ root.innerHTML=arr.map(e=>`<div class="history-entry"><span class="history-dot ${esc(e.level)}"></span><div><strong>${esc(e.kind==='media'?'Imagem ou vídeo':'Texto ou notícia')}</strong><span>${esc(e.title)}</span><small>${new Date(e.at).toLocaleString('pt-BR')}</small></div></div>`).join('');
+}
+async function handleFile(file){
+ if(!file)return;
+ $('mediaResult').innerHTML=''; $('fileSelected').textContent=file.name+' · '+formatBytes(file.size);$('fileSelected').classList.remove('hidden');
+ $('scanProgress').classList.remove('hidden');
+ await new Promise(r=>setTimeout(r,110));
+ try{const result=await analyzeFile(file);renderResult(result,'mediaResult')}
+ catch(err){toast(err.message||'Falha na análise');$('mediaResult').textContent=err.message||'Não foi possível ler o arquivo.'}
+ finally{$('scanProgress').classList.add('hidden')}
+}
+function handleText(){try{const result=analyzeText($('textInput').value);renderResult(result,'textResult')}catch(e){toast(e.message)}}
+for(const tab of document.querySelectorAll('.tab'))tab.addEventListener('click',()=>navigate(tab.dataset.page));
+$('settingsButton').addEventListener('click',()=>navigate('settingsPage'));
+$('openMedia').addEventListener('click',()=>navigate('mediaPage'));
+$('openText').addEventListener('click',()=>navigate('textPage'));
+$('mediaInput').addEventListener('change',e=>handleFile(e.target.files?.[0]));
+$('dropZone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('mediaInput').click()}});
+for (const ev of ['dragenter','dragover']) $('dropZone').addEventListener(ev,e=>{e.preventDefault();$('dropZone').classList.add('dragging')});
+for (const ev of ['dragleave','drop']) $('dropZone').addEventListener(ev,e=>{e.preventDefault();$('dropZone').classList.remove('dragging')});
+$('dropZone').addEventListener('drop',e=>handleFile(e.dataTransfer?.files?.[0]));
+$('textInput').addEventListener('input',e=>$('charCount').textContent=e.target.value.length+' / 6000');
+$('clearText').addEventListener('click',()=>{$('textInput').value='';$('charCount').textContent='0 / 6000';$('textResult').innerHTML='' });
+$('analyzeText').addEventListener('click',handleText);
+$('clearHistory').addEventListener('click',()=>{if(confirm('Apagar os registros locais de análise?')){localStorage.removeItem(key);renderHistory();toast('Histórico apagado','green')}});
+$('deleteData').addEventListener('click',()=>{if(confirm('Apagar todos os dados locais do DOMO?')){localStorage.removeItem(key);renderHistory();toast('Dados apagados','green')}});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installButton').classList.remove('hidden')});
+$('installButton').addEventListener('click',async()=>{if(deferredInstall){deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;$('installButton').classList.add('hidden')}});
+/* Página web independente: sem service worker nesta versão. */
+const params=new URLSearchParams(location.search);
+const shared=[params.get('title'),params.get('text'),params.get('url')].filter(Boolean).join('\n');
+if(shared){$('textInput').value=shared.slice(0,6000);$('charCount').textContent=$('textInput').value.length+' / 6000';navigate('textPage')}
+window.DOMO={
+ importSharedFile: async (url,name,mime)=>{
+  try {
+   navigate('mediaPage');
+   const res=await fetch(url,{cache:'no-store'});
+   if(!res.ok) throw new Error('Não foi possível acessar o arquivo compartilhado.');
+   const blob=await res.blob();
+   const f=new File([blob],name||'Arquivo compartilhado',{type:mime||blob.type});
+   await handleFile(f);
+  } catch(e){toast('Erro ao importar: '+(e.message||'arquivo indisponível'));}
+ }
+};
+</script>
+</body>
+</html>
