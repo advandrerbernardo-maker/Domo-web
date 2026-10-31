@@ -166,6 +166,11 @@ const patternRules = [
   {code:'secrets',re:/\b(senha|c[oó]digo de verifica[çc][aã]o|token|dados banc[aá]rios|cvv)\b/i,label:'Referência a dados sensíveis',detail:'Evite fornecer senhas, códigos e dados bancários por links ou mensagens inesperadas.'},
   {code:'money',re:/\b(pix|transfer[eê]ncia|taxa de libera[çc][aã]o|dep[oó]sito|premia[çc][aã]o|pr[eê]mio)\b/i,label:'Referência a dinheiro ou pagamento',detail:'Confira a identidade do remetente por canal oficial antes de efetuar transferências.'},
 ];
+// Alertas de cautela: menções a saúde e boatos não significam que o autor esteja espalhando a alegação.
+const healthTopic = /\b(c[aâ]ncer|tumores?|diabetes|vacinas?|vacina[çc][aã]o|imunizantes?|hpv|gesta[çc][aã]o|gravidez|gr[aá]vidas?|beb[eê]s?|infertilidade|esterilidade)\b/i;
+const healthAssertion = /\b(cura|curar|curam|curado|elimina|causa|causam|provoca|preven[çc][aã]o|prevenir|evita|evitam|deixa|deixam|muda|mudam|reverte|risco|c[aâ]ncer|infertilidade)\b/i;
+const misinformationContext = /\b(boatos?|rumores?|desinforma[çc][aã]o|afirma[çc][oõ]es|alega[çc][oõ]es|mitos?|desmentid[ao]s?|fake news)\b/i;
+const checkableStatement = /\b(é|s[aã]o|causa|causam|provoca|provocam|cura|curar|afirma|comprova|cientistas|pesquisadores|estudo|pesquisa|anunciou|anuncia|governo|not[ií]cia)\b/i;
 const shortened = new Set(['bit.ly','tinyurl.com','cutt.ly','t.co','is.gd','rebrand.ly','shorturl.at']);
 function safeURL(raw) {try {return new URL(raw);}catch{return null;}}
 function extractUrls(text) {return text.match(/(?:https?:\/\/|www\.)[^\s<>"'“”]+/gi)||[];}
@@ -173,6 +178,33 @@ function analyzeText(input) {
   const txt = String(input??'').trim();
   if(txt.length<10) throw new Error('Insira pelo menos 10 caracteres para verificar.');
   const evidence = patternRules.filter(rule=>rule.re.test(txt)).map(rule=>({code:rule.code,label:rule.label,detail:rule.detail,severity:'warning'}));
+  const talksAboutHealth = healthTopic.test(txt);
+  const healthClaim = talksAboutHealth && healthAssertion.test(txt);
+  const describesClaims = misinformationContext.test(txt);
+  if(healthClaim){
+    evidence.push({
+      code:'health-claim',
+      label:'Alegação relacionada à saúde',
+      detail:'O texto menciona afirmações sobre doenças, vacinas ou gravidez que exigem fontes médicas confiáveis. Este alerta NÃO indica que sejam falsas. Confira se o autor está citando ou desmentindo essas alegações.',
+      severity:'warning'
+    });
+  }
+  if(describesClaims){
+    evidence.push({
+      code:'claims-context',
+      label:'Contexto de boatos ou afirmações',
+      detail:'Há referências a boatos, rumores ou alegações. O texto pode estar explicando ou desmentindo desinformação. A análise automática não determina o sentido dessa citação.',
+      severity:'info'
+    });
+  }
+  if(!evidence.length && (txt.length>=85 || checkableStatement.test(txt))){
+    evidence.push({
+      code:'not-fact-checked',
+      label:'Afirmações ainda não verificadas',
+      detail:'O DOMO ainda não comparou as afirmações com fontes independentes. O aviso amarelo significa apenas que é necessário conferir, não que o texto seja falso.',
+      severity:'info'
+    });
+  }
   const links = [...new Set(extractUrls(txt))].slice(0,12);
   for(const link of links){
     const value=link.startsWith('www.')?'https://'+link:link;
@@ -186,11 +218,16 @@ function analyzeText(input) {
     if(url.protocol!=='https:') evidence.push({code:'unencrypted',label:'Link sem HTTPS',detail:'Esse link usa HTTP ou outro protocolo. Não insira informações pessoais sem conferir o endereço.',severity:'warning'});
   }
   const query=txt.replace(/https?:\/\/\S+/g,'').slice(0,180).trim()||txt.slice(0,180);
+  const warrantsReview = evidence.length>0;
   return {
     kind:'text',name:'Mensagem analisada',type:'text/plain',size:txt.length,
-    level:evidence.length?'yellow':'green',
-    title:evidence.length?'⚠️ Verifique esta mensagem':'⚠️ Nenhum sinal típico encontrado',
-    summary:evidence.length?'Foram identificados elementos que pedem atenção. Nenhum deles, isoladamente, prova que a mensagem seja falsa ou um golpe.':'Não foram encontrados padrões simples de risco. O conteúdo NÃO foi verificado em fontes independentes.',
+    level:warrantsReview?'yellow':'green',
+    title:healthClaim?'⚠️ Alegações de saúde: confira':warrantsReview?'⚠️ Informação requer checagem':'⚠️ Nenhum padrão de risco identificado',
+    summary:healthClaim
+      ?'Este texto contém alegações sensíveis de saúde. Elas podem estar sendo citadas para combater boatos, e não como fatos. Consulte fontes médicas e o contexto original.'
+      :warrantsReview
+        ?'Há informações que merecem checagem. O DOMO não confirmou falsidade, manipulação ou fraude.'
+        :'Nenhum padrão de risco foi detectado. Isso NÃO verifica a veracidade da mensagem.',
     evidence,query,
     limitations:['A detecção de linguagem e links é indicativa, não conclusiva.','Esta versão não consulta automaticamente bases de notícias verificadas.','Se quiser confirmar afirmações, use as consultas externas opcionais.']
   };
@@ -226,7 +263,7 @@ function renderResult(result,containerId){
    try{await navigator.clipboard.writeText(report);toast('Resumo copiado','green')}catch{toast('Não foi possível copiar neste navegador')}
  });
  saveHistory(result);
- toast(result.level==='green'?'Análise concluída, sem sinais específicos': 'Sinais encontrados. Confira os detalhes',result.level);
+ toast(result.level==='green'?'Triagem feita; veracidade não confirmada':'Cautela: confira o contexto e as fontes',result.level);
 }
 function renderHistory(){
  const arr=readHistory();const root=$('historyList');
