@@ -170,7 +170,7 @@ const patternRules = [
 const healthTopic = /\b(c[aâ]ncer|tumores?|diabetes|vacinas?|vacina[çc][aã]o|imunizantes?|hpv|gesta[çc][aã]o|gravidez|gr[aá]vidas?|beb[eê]s?|infertilidade|esterilidade)\b/i;
 const healthAssertion = /\b(cura|curar|curam|curado|elimina|causa|causam|provoca|preven[çc][aã]o|prevenir|evita|evitam|deixa|deixam|muda|mudam|reverte|risco|c[aâ]ncer|infertilidade)\b/i;
 const misinformationContext = /\b(boatos?|rumores?|desinforma[çc][aã]o|afirma[çc][oõ]es|alega[çc][oõ]es|mitos?|desmentid[ao]s?|fake news)\b/i;
-const checkableStatement = /\b(é|s[aã]o|causa|causam|provoca|provocam|cura|curar|afirma|comprova|cientistas|pesquisadores|estudo|pesquisa|anunciou|anuncia|governo|not[ií]cia)\b/i;
+const checkableStatement = /(?:^|[\s“"'(])é(?=[\s.,!?;:]|$)|\b(s[aã]o|causa|causam|provoca|provocam|cura|curar|afirma|comprova|cientistas|pesquisadores|estudo|pesquisa|anunciou|anuncia|governo|not[ií]cia)\b/i;
 const shortened = new Set(['bit.ly','tinyurl.com','cutt.ly','t.co','is.gd','rebrand.ly','shorturl.at']);
 function safeURL(raw) {try {return new URL(raw);}catch{return null;}}
 function extractUrls(text) {return text.match(/(?:https?:\/\/|www\.)[^\s<>"'“”]+/gi)||[];}
